@@ -1,0 +1,62 @@
+/* Estilos generales para todo el sitio */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2 {
+    color: #343a40;
+}
+
+.container {
+    margin-top: 30px;
+}
+
+/* Estilo para la lista de barriles */
+#barriles-list {
+    margin-top: 20px;
+}
+
+#barriles-list li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#barriles-list li strong {
+    font-size: 1.2rem;
+    color: #007bff;
+}
+
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+footer p {
+    margin: 0;
+    padding: 10px;
+}
+
+/* Estilo para la barra de navegación */
+.navbar {
+    margin-bottom: 30px;
+}
+
+/* Responsividad para dispositivos pequeños */
+@media (max-width: 767px) {
+    .navbar-nav {
+        text-align: center;
+    }
+    #barriles-list {
+        padding-left: 0;
+    }
+    #barriles-list li {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

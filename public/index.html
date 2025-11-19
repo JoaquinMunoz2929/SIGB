@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inicio - Cervecería Totem</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background: url('/images/textura-fondo.jpg') repeat;
+      background-size: cover;
+      backdrop-filter: blur(2px);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .navbar {
+      background-color: rgba(44, 62, 80, 0.95);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar-brand img {
+      height: 55px;
+      width: auto;
+    }
+
+    .nav-link {
+      color: white !important;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-link:hover {
+      color: #ffa500 !important;
+      transform: scale(1.05);
+    }
+
+    .nav-link i {
+      margin-right: 6px;
+    }
+
+    .badge-noti {
+      position: absolute;
+      top: 0;
+      right: -6px;
+      background-color: #e74c3c;
+      color: white;
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    .usuario-info {
+      font-weight: 700;
+      color: #2c3e50;
+      text-align: center;
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 800;
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-top: 10px;
+    }
+
+    h1 i {
+      color: #ffa500;
+      margin-right: 10px;
+    }
+
+    .lead {
+      text-align: center;
+      color: #555;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+
+   .card img {
+  border-radius: 15px 15px 0 0;
+  width: 100%;
+  height: auto;
+  max-height: 250px;
+  object-fit: contain;
+  padding: 10px;
+}
+
+    .card-body h5 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-align: center;
+      color: #34495e;
+    }
+
+    .btn-lg {
+      font-size: 1.05rem;
+      padding: 12px 20px;
+      width: 100%;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ec6607c3, #d86d02d1);
+      color: rgb(253, 252, 251);
+      border: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn-lg:hover {
+      background: linear-gradient(135deg, #ff7f00, #ffa500);
+      transform: scale(1.04);
+      box-shadow: 0 6px 16px rgba(223, 217, 217, 0.3);
+    }
+
+    footer {
+      background-color: rgba(44, 62, 80, 0.95);
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- Token y rol -->
+  <script>
+    const token = localStorage.getItem("token");
+    const rol = localStorage.getItem("rol");
+    const nombre = localStorage.getItem("nombre");
+
+    if (!token || !rol) {
+      window.location.href = "/views/login.html";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("nombreUsuario").textContent = `${nombre} (${rol})`;
+
+      if (rol === "operador") {
+        document.querySelectorAll(".admin-only, .gerente-only").forEach(el => el.remove());
+      } else if (rol === "gerente") {
+        document.querySelectorAll(".admin-only, .operador-only").forEach(el => el.remove());
+      }
+
+      // Ejemplo visual de notificaciones
+      const notiCount = 2;
+      if (notiCount > 0) {
+        const badge = document.createElement('span');
+        badge.classList.add('badge-noti');
+        badge.textContent = notiCount;
+        document.getElementById("noti-icon").appendChild(badge);
+      }
+    });
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "/views/login.html";
+    }
+  </script>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+        <img src="/images/logo-totem.png" alt="Logo Cervecería Totem">
+        Cervecería Totem
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item operador-only">
+            <a class="nav-link" href="/views/barriles"><i class="bi bi-box-seam"></i>Barriles</a>
+          </li>
+          <li class="nav-item operador-only">
+            <a class="nav-link" href="/views/movimientos"><i class="bi bi-arrow-left-right"></i>Movimientos</a>
+          </li>
+          <li class="nav-item gerente-only">
+            <a class="nav-link position-relative" id="noti-icon" href="/views/notificaciones">
+              <i class="bi bi-bell-fill"></i>Notificaciones
+            </a>
+          </li>
+          <li class="nav-item gerente-only">
+            <a class="nav-link" href="/views/informes"><i class="bi bi-clipboard-data"></i>Informes</a>
+          </li>
+          <li class="nav-item admin-only">
+            <a class="nav-link" href="/views/usuarios"><i class="bi bi-people-fill"></i>Usuarios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link logout" href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i>Cerrar sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Usuario -->
+  <div class="usuario-info">
+    Bienvenido <span id="nombreUsuario">Usuario</span>
+  </div>
+
+  <!-- Contenido Principal -->
+  <div class="container my-4 flex-grow-1">
+    <h1><i class="bi bi-bar-chart-line-fill"></i>Gestión de Barriles</h1>
+    <p class="lead">Gestiona todas las áreas según tu rol dentro del sistema.</p>
+
+    <div class="row g-4 text-center">
+      <!-- Operador -->
+      <div class="col-md-4 operador-only">
+        <div class="card">
+          <img src="/images/barriles.jpg" class="card-img-top" alt="Barriles">
+          <div class="card-body">
+            <h5 class="card-title">Gestión de Barriles</h5>
+            <a href="/views/barriles" class="btn btn-lg"><i class="bi bi-box-seam"></i> Ir</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 operador-only">
+        <div class="card">
+          <img src="/images/movimientos.jpg" class="card-img-top" alt="Movimientos">
+          <div class="card-body">
+            <h5 class="card-title">Movimientos</h5>
+            <a href="/views/movimientos" class="btn btn-lg"><i class="bi bi-arrow-left-right"></i> Ir</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gerente -->
+      <div class="col-md-4 gerente-only">
+        <div class="card">
+          <img src="/images/notificaciones.jpg" class="card-img-top" alt="Notificaciones">
+          <div class="card-body">
+            <h5 class="card-title">Notificaciones</h5>
+            <a href="/views/notificaciones" class="btn btn-lg"><i class="bi bi-bell-fill"></i> Ir</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 gerente-only">
+        <div class="card">
+          <img src="/images/informes.jpg" class="card-img-top" alt="Informes">
+          <div class="card-body">
+            <h5 class="card-title">Informes</h5>
+            <a href="/views/informes" class="btn btn-lg"><i class="bi bi-clipboard-data"></i> Ir</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin -->
+      <div class="col-md-4 admin-only">
+        <div class="card">
+          <img src="/images/usuarios.jpg" class="card-img-top" alt="Usuarios">
+          <div class="card-body">
+            <h5 class="card-title">Gestión de Usuarios</h5>
+            <a href="/views/usuarios" class="btn btn-lg"><i class="bi bi-person-lines-fill"></i> Ir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="text-center">
+    <p class="mb-0">© 2025 Cervecería Totem | Todos los derechos reservados</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
