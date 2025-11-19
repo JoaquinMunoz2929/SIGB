@@ -1,6 +1,4 @@
-# SIGB – Sistema Integral de Gestión de Barriles para Cervecería Totem
-
-Proyecto desarrollado como parte del **Proyecto Integrado de Ingeniería Informática (INACAP)**.  
+# SIGB – Sistema Integral de Gestión de Barriles  
 El sistema permite gestionar de forma centralizada los barriles de la Cervecería Totem, registrando su ciclo de vida, movimientos, notificaciones y reportes, con control de acceso por roles.
 
 ---
