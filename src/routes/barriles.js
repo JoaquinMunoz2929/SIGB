@@ -9,7 +9,7 @@ const {
   verificarCualquierRol
 } = require("../middlewares/auth");
 
-// 📦 GET - Obtener todos los barriles (admin, gerente, operador)
+// GET - Obtener todos los barriles (admin, gerente, operador)
 router.get("/", verificarToken, verificarCualquierRol('admin', 'gerente', 'operador'), async (req, res) => {
   try {
     const barriles = await Barril.find();
@@ -23,7 +23,7 @@ router.get("/", verificarToken, verificarCualquierRol('admin', 'gerente', 'opera
   }
 });
 
-// ➕ POST - Crear nuevo barril (solo admin y operador)
+// POST - Crear nuevo barril (solo admin y operador)
 router.post("/", verificarToken, verificarCualquierRol('admin', 'operador'), async (req, res) => {
   const { nombre, estado, ubicacion } = req.body;
 
@@ -48,7 +48,7 @@ router.post("/", verificarToken, verificarCualquierRol('admin', 'operador'), asy
   }
 });
 
-// ✏️ PATCH - Actualizar barril (solo admin y operador)
+// PATCH - Actualizar barril (solo admin y operador)
 router.patch("/:id", verificarToken, verificarCualquierRol('admin', 'operador'), async (req, res) => {
   const { id } = req.params;
   const { nombre, estado, ubicacion } = req.body;
@@ -86,7 +86,7 @@ router.patch("/:id", verificarToken, verificarCualquierRol('admin', 'operador'),
   }
 });
 
-// 🗑️ DELETE - Eliminar barril (solo admin)
+// DELETE - Eliminar barril (solo admin)
 router.delete("/:id", verificarToken, verificarRol('admin'), async (req, res) => {
   const { id } = req.params;
 
